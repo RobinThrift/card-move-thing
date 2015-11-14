@@ -6,7 +6,7 @@ module.exports = function(gulp, config) {
     gulp.task('styles:build', function() {
         var sass = require('gulp-sass');
 
-        return gulp.src(config.paths.scripts.main)
+        return gulp.src(config.paths.styles.main)
             .pipe(sass({
                 sourceMap: (config.target === 'dev'),
                 sourceMapEmbed: true

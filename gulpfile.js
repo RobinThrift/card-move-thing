@@ -25,3 +25,5 @@ var gulp       = require('gulp'),
 forEach(requireDir('./tasks'), function(task) {
     task(gulp, config);
 });
+
+gulp.task('default', ['html', 'styles', 'scripts', 'lint'])

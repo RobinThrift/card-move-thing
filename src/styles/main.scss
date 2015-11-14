@@ -14,7 +14,7 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
-.card-row {
+.card-row, .card-row--header {
   width: 100%;
   clear: both;
   min-height: 100px;
@@ -30,18 +30,21 @@ body {
   }
 }
 
-.card-column {
-  width: 250px;
-  border-right: 1px solid #aaa;
+.card-row--header {
+  min-height: 0;
+  line-height: 30px;
+  text-align: center;
+}
 
-  &:last-child {
-    border-right: none;
-  }
+.card-column {
+  min-width: 250px;
+  border-right: 1px solid #aaa;
 }
 
 .card-column--header {
   width: 30px;
   position: relative;
+  min-width: 30px;
 
   span {
     transform: rotate(-90deg);

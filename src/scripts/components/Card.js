@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 export function Card(props) {
     let classList = 'card-card';
     if (props.color) {
-      classList += ' ' + props.color;
+        classList += ' ' + props.color;
     }
 
     return (

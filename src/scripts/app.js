@@ -11,6 +11,20 @@ class Application extends React.Component {
     render() {
         let {rows, columns, cards} = _mockData;
 
+        let headerCols = columns.map((col) => {
+            return (
+                <Column key={col.order}>
+                    {col.title}
+                </Column>
+            );
+        });
+
+        let header = (
+            <Row header={true}>
+                {headerCols}
+            </Row>
+        );
+
         let rowEls = rows.map((row) => {
             let rowCols = columns.map((col) => {
                 let colCards = cards
@@ -39,7 +53,10 @@ class Application extends React.Component {
         });
 
         return (
-            <div>{rowEls}</div>
+            <div>
+              {header}
+              {rowEls}
+            </div>
         );
     }
 }

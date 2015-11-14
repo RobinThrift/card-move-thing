@@ -9,7 +9,7 @@ var gulp       = require('gulp'),
             html: 'src/index.html',
             scripts: {
                 main: 'src/scripts/app.js',
-                watch: ['src/scripts/**/*']
+                watch: ['src/scripts/**/*', 'src/scripts/*']
             },
             styles: {
                 main: 'src/styles/main.scss',

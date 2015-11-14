@@ -15,6 +15,7 @@ class Application extends React.Component {
             let rowCols = columns.map((col) => {
                 let colCards = cards
                     .filter((c) => { return c.row === row.order && c.column === col.order; })
+                    .sort((c1, c2) => c1.order - c2.order)
                     .map((c) => {
                         return (
                             <Card title={c.title} color={c.color} key={c.order}>
@@ -22,7 +23,6 @@ class Application extends React.Component {
                             </Card>
                         );
                     });
-                    // @TODO sort/order
 
                 return (
                     <Column key={col.order}>

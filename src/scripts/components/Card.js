@@ -7,7 +7,7 @@ export function Card(props) {
     }
 
     return (
-        <div className={classList}>
+        <div className={classList} onClick={props.onClick}>
             <h3 className="card-card__header">{props.title}</h3>
             {props.children}
         </div>
@@ -17,5 +17,6 @@ export function Card(props) {
 Card.propTypes = {
     color: PropTypes.string,
     title: PropTypes.string,
-    children: PropTypes.string
+    children: PropTypes.string,
+    onClick: PropTypes.func
 };

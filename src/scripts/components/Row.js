@@ -3,7 +3,6 @@ import {Column} from './Column';
 
 export function Row(props) {
     let className = (props.header) ? 'card-row--header' : 'card-row';
-
     return (
         <div className={className}>
             <Column heading={true}>{props.title}</Column>

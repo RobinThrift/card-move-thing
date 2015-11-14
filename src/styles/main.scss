@@ -18,25 +18,24 @@
   width: 250px;
   border-right: 1px solid #aaa;
 
-  &:nth-child(2) {
-    border-left: 1px solid #aaa;
-  }
-
   &:last-child {
     border-right: none;
   }
 }
 
 .card-column--header {
-  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
-  align-self: flex-start;
   width: 30px;
-  margin: auto 0;
+  position: relative;
 
   span {
+    transform: rotate(-90deg);
+    transform-origin: left;
+    display: inline-block;
     position: absolute;
-    top: 50%;
-    text-align: center;
+    top: calc(100% - 20px);
+    left: 40%;
+    width: 80px;
+
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

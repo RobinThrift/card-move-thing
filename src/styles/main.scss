@@ -1,3 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700);
+
+@mixin linear-gradient($direction, $color-stops...) {
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+@mixin card-gradient($color) {
+  @include linear-gradient($color, darken($color, 10%))
+}
+
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
 .card-row {
   width: 100%;
   clear: both;
@@ -43,14 +59,35 @@
 }
 
 .card-card {
-  border: 1px solid #aaa;
+  @include card-gradient(white);
   border-radius: 2px;
-  box-shadow: 2px 2px 5px #aaa;
+  box-shadow: 2px 2px 6px #aaa;
   padding: 5px;
   margin: 10px;
 
   h3 {
     margin: 0 0 5px;
     padding: 0;
+  }
+
+  &.red {
+    @include card-gradient(#e55934);
+    color: white;
+  }
+
+  &.green {
+    @include card-gradient(#9bc53d);
+  }
+
+  &.blue {
+    @include card-gradient(#5bc0eb);
+  }
+
+  &.yellow {
+    @include card-gradient(#fde74c);
+  }
+
+  &.orange {
+    @include card-gradient(#fa7921);
   }
 }

@@ -3,11 +3,19 @@ import React, {PropTypes} from 'react';
 export function Column(props) {
     let classList = 'card-column';
     classList += (props.heading) ? ' card-column--header' : '';
-    return (
-        <div className={classList}>
-            {props.children}
-        </div>
-    );
+    if (props.heading) {
+      return (
+          <div className={classList}>
+              <span>{props.children}</span>
+          </div>
+      );
+    } else {
+      return (
+          <div className={classList}>
+              {props.children}
+          </div>
+      );
+    }
 }
 
 Column.propTypes = {

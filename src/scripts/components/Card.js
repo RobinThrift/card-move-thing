@@ -1,8 +1,13 @@
 import React, {PropTypes} from 'react';
 
 export function Card(props) {
+    let classList = 'card-card';
+    if (props.color) {
+      classList += ' ' + props.color;
+    }
+
     return (
-        <div className="card-card">
+        <div className={classList}>
             <h3 className="card-card__header">{props.title}</h3>
             {props.children}
         </div>

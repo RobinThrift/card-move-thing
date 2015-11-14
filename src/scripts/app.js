@@ -17,7 +17,7 @@ class Application extends React.Component {
                     .filter((c) => { return c.row === row.order && c.column === col.order; })
                     .map((c) => {
                         return (
-                            <Card title={c.title} key={c.order}>
+                            <Card title={c.title} color={c.color} key={c.order}>
                                 {c.content}
                             </Card>
                         );

@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/q/Q.d.ts" />
+
 import sharejs from 'share';
 import {BCSocket} from './node_modules/browserchannel/dist/bcsocket';
 import json from 'ot-json0';

@@ -26,6 +26,10 @@ ColumnProp.propTypes = {
 };
 
 let columnTarget = {
+    canDrop(props) {
+        // don't allow dropping in header cells
+        return !props.heading && typeof props.row !== 'undefined';
+    },
     drop(props) {
         return {row: props.row, column: props.column};
     }

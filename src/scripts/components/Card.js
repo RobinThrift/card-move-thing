@@ -15,8 +15,10 @@ class CardComp extends Component {
         };
     }
 
-    onClick() {
-        if (!this.state.editing) {
+    onClick(e) {
+        if (e.target.tagName === 'A') { // don't start editing when a link is clicked
+            e.target.target = '_blank';
+        } else if (!this.state.editing) {
             this.setState({editing: !this.state.editing});
         }
     }

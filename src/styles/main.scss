@@ -183,6 +183,10 @@ body {
     outline: none;
     overflow: hidden;
   }
+  
+  a {
+      color: inherit;
+  }
 
   &.red {
     @include card-gradient(#e55934);

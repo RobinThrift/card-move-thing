@@ -23,7 +23,7 @@ class CardEditorComp extends Component {
     };
 
     autoResize() {
-        //auto-resize the textarea
+        // auto-resize the textarea
         this.el.style.height = '10px';
         this.el.style.height = this.el.scrollHeight + 'px';
     };

@@ -42,7 +42,7 @@ class CardComp extends Component {
         }
 
         return connectDragSource(connectDropTarget((
-            <div className={classList} onClick={this.onDoubleClick.bind(this)}>
+            <div className={classList} onClick={this.onClick.bind(this)}>
                 <div className="card-card__content">
                     <Markdown source={this.props.children} />
                 </div>

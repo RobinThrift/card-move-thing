@@ -30,8 +30,13 @@ let columnTarget = {
         // don't allow dropping in header cells
         return !props.heading && typeof props.row !== 'undefined';
     },
-    drop(props) {
-        return {row: props.row, column: props.column};
+    drop(props, monitor) {
+        if (monitor.didDrop()) {
+            return;
+        }
+        /* eslint-disable */
+        return {data: {row: props.row, column: props.column}, action: 'CHANGE_COLUMN'};
+        /* eslint-enable */
     }
 };
 

@@ -26,4 +26,4 @@ forEach(requireDir('./tasks'), function(task) {
     task(gulp, config);
 });
 
-gulp.task('default', ['html', 'styles', 'scripts', 'lint'])
+gulp.task('default', ['html', 'styles', 'scripts', 'lint']);

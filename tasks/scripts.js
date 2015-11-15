@@ -1,6 +1,6 @@
 
 module.exports = function(gulp, config) {
-    gulp.task('scripts:bundle', ['lint'], function() { 
+    gulp.task('scripts:bundle', function() { 
         var browserify = require('browserify'),
             source     = require('vinyl-source-stream'),
             tsify      = require('tsify'),

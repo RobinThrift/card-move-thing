@@ -18,7 +18,7 @@ module.exports = function(gulp, config) {
 
         var reload = browsersync.reload;
 
-        gulp.watch(config.paths.scripts.watch, ['scripts'])
+        gulp.watch(config.paths.scripts.watch, ['lint', 'scripts'])
             .on('change', reload);
         gulp.watch(config.paths.styles.watch, ['styles'])
             .on('change', reload);

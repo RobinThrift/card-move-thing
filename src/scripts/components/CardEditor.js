@@ -8,6 +8,12 @@ class CardEditorComp extends Component {
         };
     };
 
+    componentDidMount() {
+        this.el.focus();
+        this.el.selectionStart = this.el.selectionEnd = this.el.value.length;
+        this.autoResize();
+    };
+
     onKeyDown(e) {
         if (e.keyCode === 13 && !e.shiftKey) {
             this.props.onEditingDone({
@@ -16,8 +22,15 @@ class CardEditorComp extends Component {
         }
     };
 
+    autoResize() {
+        //auto-resize the textarea
+        this.el.style.height = '10px';
+        this.el.style.height = this.el.scrollHeight + 'px';
+    };
+
     onContentChange(e) {
         this.setState({editableContent: e.target.value});
+        this.autoResize();
     };
 
     render() {

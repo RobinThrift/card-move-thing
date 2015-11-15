@@ -101,10 +101,14 @@ body {
 
   &:hover {
       @include material-shadow(2);
+      position: relative;
+      z-index: 42; //ensures that the shadow is over other cards
   }
 
   &.editing {
       @include material-shadow(3);
+      position: relative;
+      z-index: 42; //ensures that the shadow is over other cards
   }
 
   &__header {

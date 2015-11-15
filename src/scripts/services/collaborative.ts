@@ -10,13 +10,13 @@ declare class Document<T> {
     publish: (state: T) => any;
 }
 
-let createDocument = async function<T>(name: string, initialState: T, onChange: (x: T) => any) {
+export let createDocument = async function<T>(name: string, initialState: T, onChange: (x: T) => any) {
     let socket = new BCSocket(null, {reconnect: true});
     let sjs = new sharejs.Connection(socket);
     let doc = sjs.get('card-move-thing', name);
     let ctx = null;
 
-    return new Promise<Document>((resolve, reject) => {
+    return Promise<Document<T>>((resolve, reject) => {
         doc.subscribe(() => onChange(ctx.getSnapshot()));
 
         doc.whenReady(() => {
@@ -43,5 +43,3 @@ let createDocument = async function<T>(name: string, initialState: T, onChange: 
         });
     });
 };
-
-export createDocument;

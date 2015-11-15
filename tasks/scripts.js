@@ -9,7 +9,7 @@ module.exports = function(gulp, config) {
                     baseDir: config.pwd,
                     debug: (config.target === 'dev')
                 })
-                .transform('babelify', {presets: ["es2015", "react"]})
+                .transform('babelify', {presets: ['es2015', 'react']})
                 .bundle()
                 .pipe(source('main.min.js'))
                 .pipe(gulp.dest(config.paths.dest + '/scripts'));

@@ -63,7 +63,7 @@ body {
 }
 
 .card-column {
-  min-width: 250px;
+  width: 250px;
   border-right: 1px solid #aaa;
 }
 
@@ -103,9 +103,39 @@ body {
       @include material-shadow(2);
   }
 
-  h3 {
+  &__header {
+    font-size: 20px;
     margin: 0 0 5px;
     padding: 0;
+  }
+
+  &__header--editor {
+    font-size: 20px;
+    margin: 0 0 5px;
+    padding: 0;
+    border: 0;
+    display: block;
+    color: inherit;
+    background: rgba(0,0,0,.5);
+    font-weight: bold;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  &__content {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  &__content--editor {
+    width: 100%;
+    font-size: 14px;
+    padding: 0;
+    border: 0;
+    display: block;
+    color: inherit;
+    background: rgba(0,0,0,.5);
+    font-family: inherit;
   }
 
   &.red {

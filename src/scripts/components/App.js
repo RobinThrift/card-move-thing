@@ -28,19 +28,19 @@ function App(props) {
         </Row>
     );
 
-    let onClickHandler = (card) => {
-        let c = Object.assign({}, card, {color: 'red'});
-        return () => {
-            dispatch(updateCard(c.id, c));
-        };
-    };
-
     let onDragEndHandler = (card) => {
         return (newPos) => {
             let c = Object.assign({}, card, newPos);
             dispatch(updateCard(c.id, c));
         };
     };
+
+    let onCardChangeHandler = (card) => {
+        return (newContent) => {
+            let c = Object.assign({}, card, newContent);
+            dispatch(updateCard(c.id, c));
+        }
+    }
 
     let rowEls = rows.map((row) => {
         let rowCols = columns.map((col) => {
@@ -53,8 +53,8 @@ function App(props) {
                             title={c.title}
                             color={c.color}
                             key={c.id}
-                            onClick={onClickHandler(c)}
                             onDragEnd={onDragEndHandler(c)}
+                            onChange={onCardChangeHandler(c)}
                         >
                             {c.content}
                         </Card>

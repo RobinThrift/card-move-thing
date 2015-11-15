@@ -1,32 +1,82 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {DragSource} from 'react-dnd';
+import Markdown from 'react-markdown';
 
-function CardComp(props) {
-    let classList = 'card-card';
-    if (props.color) {
-        classList += ' ' + props.color;
+class CardComp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false,
+            editableTitle: props.title,
+            editableContent: props.children
+        };
     }
 
-    let {connectDragSource} = props;
+    onDoubleClick() {
+        this.setState({editing: !this.state.editing});
+        this.props.onChange({
+            title: this.state.editableTitle,
+            content: this.state.editableContent
+        });
+    }
 
-    return connectDragSource((
-        <div className={classList} onClick={props.onClick}>
-            <h3 className="card-card__header">{props.title}</h3>
-            {props.children}
-        </div>
-    ));
+    onTitleChange(e) {
+        this.setState({editableTitle: e.target.value});
+    }
+
+    onContentChange(e) {
+        this.setState({editableContent: e.target.value});
+    }
+
+    render() {
+        let classList = 'card-card';
+        if (this.props.color) {
+            classList += ' ' + this.props.color;
+        }
+
+        let {connectDragSource} = this.props;
+
+        if (this.state.editing) {
+            classList += ' editing';
+            return (
+                <div className={classList} onDoubleClick={this.onDoubleClick.bind(this)}>
+                    <input
+                        className="card-card__header--editor"
+                        type="text" value={this.state.editableTitle}
+                        onChange={this.onTitleChange.bind(this)}
+                    />
+                    <textarea
+                        className="card-card__content--editor"
+                        value={this.state.editableContent}
+                        onChange={this.onContentChange.bind(this)}></textarea>
+                </div>
+            );
+        }
+
+        return connectDragSource((
+            <div className={classList} onDoubleClick={this.onDoubleClick.bind(this)}>
+                <h3 className="card-card__header">{this.props.title}</h3>
+                <div className="card-card__content">
+                    <Markdown source={this.props.children} />
+                </div>
+            </div>
+        ));
+    }
 }
 
 CardComp.propTypes = {
     color: PropTypes.string,
     title: PropTypes.string,
     children: PropTypes.string,
-    onClick: PropTypes.func,
-    onDragEnd: PropTypes.func
+    onDoubleClick: PropTypes.func,
+    onDragEnd: PropTypes.func,
+    onChange: PropTypes.func,
+    connectDragSource: PropTypes.func.isRequired
 };
 
 CardComp.defaultProps = {
-    onDragEnd: () => {}
+    onDragEnd: () => {},
+    onChange: () => {}
 };
 
 export const CARD_DRAG_TYPE = 'CARD_DRAG_TYPE';

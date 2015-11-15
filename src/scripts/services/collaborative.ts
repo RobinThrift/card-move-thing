@@ -2,6 +2,7 @@ import sharejs from 'share';
 import {BCSocket} from './node_modules/browserchannel/dist/bcsocket';
 import json from 'ot-json0';
 import jsondiff from 'jsondiff-share-ops';
+import {Promise} from 'q';
 
 declare class Document<T> {
     publish: (state: T) => any;

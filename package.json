@@ -23,6 +23,7 @@
     "jsondiff-share-ops": "0.0.1",
     "lodash": "^3.10.1",
     "ot-json0": "^1.0.1",
+    "q": "^1.4.1",
     "react": "^0.14.2",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0",

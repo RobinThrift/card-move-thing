@@ -13,11 +13,11 @@ function App(props) {
 
     let headerCols = columns.map((col) => {
         return (
-            <Column key={col.title}>
+            <Column key={col.id}>
                 {col.title}
             </Column>
         );
-    }).toJS();
+    }).toArray();
 
     let header = (
         <Row header={true}>
@@ -28,7 +28,6 @@ function App(props) {
     let onClickHandler = (card) => {
         let c = Object.assign({}, card, {color: 'red'});
         return () => {
-            console.log(card);
             dispatch(updateCard(c.id, c));
         };
     };
@@ -44,21 +43,21 @@ function App(props) {
                             {c.content}
                         </Card>
                     );
-                }).toJS();
+                }).toArray();
 
             return (
-                <Column key={col.title}>
+                <Column key={col.id}>
                     {colCards}
                 </Column>
             );
-        }).toJS();
+        }).toArray();
 
         return (
-            <Row title={row.title} key={row.title}>
+            <Row title={row.title} key={row.id}>
                 {rowCols}
             </Row>
         );
-    }).toJS();
+    }).toArray();
 
     return (
         <div>

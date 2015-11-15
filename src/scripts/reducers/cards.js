@@ -1,5 +1,5 @@
 
-import {List} from 'immutable';
+import {Map} from 'immutable';
 import {ADD_CARD, UPDATE_CARD, REMOVE_CARD} from '../actions/cards.js';
 
 function sortCards(c1, c2) {
@@ -9,14 +9,12 @@ function sortCards(c1, c2) {
 export function cardReducer(cards = new Map(), action) {
     switch (action.type) {
         case ADD_CARD:
-            return cards.set(action.card.id, action.card).value().sort(sortCards);
+            return cards.set(action.card.id, action.card).sort(sortCards);
         case UPDATE_CARD:
-            return cards.map((card) => {
-                if (card.id === action.id) {
-                    return action.card;
-                }
-                return card;
-            });
+            if (cards.has(action.id)) {
+                return cards.set(action.id, action.card);
+            }
+            return cards;
         case REMOVE_CARD:
             return cards.delete(action.id, action.card).sort(sortCards);
         default:

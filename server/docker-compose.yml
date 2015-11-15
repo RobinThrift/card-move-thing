@@ -1,0 +1,8 @@
+#web:
+#    image: node
+#    ports:
+#    - "8080:1234"
+mongodb:
+    image: tutum/mongodb
+    ports:
+    - "27017:27017"

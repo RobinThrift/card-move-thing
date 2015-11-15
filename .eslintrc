@@ -1,5 +1,6 @@
 {
     "extends": "airbnb",
+    "parser": "babel-eslint",
     "env": {
         "mocha": 1
     },
@@ -14,9 +15,11 @@
             }
         }],
         "prefer-const": 0,
-        "react/jsx-boolean-value": 0
+        "react/jsx-boolean-value": 0,
+        "new-cap": 0
     },
     "plugins": [
+        "babel",
         "react"
     ]
 }

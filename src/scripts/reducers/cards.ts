@@ -44,7 +44,6 @@ export function cardReducer(cards = Map(), action) {
             if (otherCard.order < card.order) {
                 card = assign({}, card, {order: otherCard.order});
                 otherCard = assign({}, otherCard, {order: otherCard.order + 1});
-                console.log(otherCard);
             } else {
                 card = assign({}, card, {order: otherCard.order + 1});
             }

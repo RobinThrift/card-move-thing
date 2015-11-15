@@ -90,7 +90,7 @@ body {
 .card-card {
   @include card-gradient(white);
   @include material-shadow(1);
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 5px;
   margin: 10px;
   transition: all 250ms;
@@ -101,6 +101,10 @@ body {
 
   &:hover {
       @include material-shadow(2);
+  }
+
+  &.editing {
+      @include material-shadow(3);
   }
 
   &__header {
@@ -116,26 +120,36 @@ body {
     border: 0;
     display: block;
     color: inherit;
-    background: rgba(0,0,0,.5);
+    background: transparent; //rgba(0,0,0,.5);
     font-weight: bold;
     font-family: inherit;
     width: 100%;
+    outline: none;
   }
 
   &__content {
     font-size: 14px;
     width: 100%;
+    padding: 0;
+    margin: 5px 0;
+
+    & > div > p:first-child {
+        margin-top: 0;
+    }
   }
 
   &__content--editor {
     width: 100%;
+    resize: vertical;
     font-size: 14px;
     padding: 0;
+    margin: 5px 0 0;
     border: 0;
     display: block;
     color: inherit;
-    background: rgba(0,0,0,.5);
+    background: transparent; //rgba(0,0,0,.5);
     font-family: inherit;
+    outline: none;
   }
 
   &.red {

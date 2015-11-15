@@ -60,6 +60,12 @@ body {
   min-height: 0;
   line-height: 30px;
   text-align: center;
+
+  & > .card-column:last-child {
+    border-right: none;
+    width: 50px;
+    cursor: pointer;
+  }
 }
 
 .card-column {

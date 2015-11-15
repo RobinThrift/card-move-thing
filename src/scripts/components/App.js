@@ -5,11 +5,14 @@ import {connect} from 'react-redux';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import uuid from 'uuid';
+
 import {Row} from './Row';
 import {Column} from './Column';
 import {Card} from './Card';
 
 import {updateCard} from '../actions/cards';
+import * as columnActions from '../actions/columns';
 
 function App(props) {
     let {rows, columns, cards, dispatch} = props;
@@ -21,6 +24,17 @@ function App(props) {
             </Column>
         );
     }).toArray();
+
+    let addColumnHandler = () => {
+        let column = {id: uuid.v4(), title: 'New column', order: props.columns.count()};
+        dispatch(columnActions.addColumn(column));
+    };
+
+    headerCols.push(
+        <Column key={uuid.v4()}>
+            <span onClick={addColumnHandler.bind(this)}>+</span>
+        </Column>
+    );
 
     let header = (
         <Row header={true}>

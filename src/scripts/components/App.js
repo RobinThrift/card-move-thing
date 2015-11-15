@@ -2,6 +2,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import {Row} from './Row';
 import {Column} from './Column';
 import {Card} from './Card';
@@ -32,6 +35,13 @@ function App(props) {
         };
     };
 
+    let onDragEndHandler = (card) => {
+        return (newPos) => {
+            let c = Object.assign({}, card, newPos);
+            dispatch(updateCard(c.id, c));
+        };
+    };
+
     let rowEls = rows.map((row) => {
         let rowCols = columns.map((col) => {
             let colCards = cards
@@ -39,14 +49,20 @@ function App(props) {
                 .sort((c1, c2) => c1.order - c2.order)
                 .map((c) => {
                     return (
-                        <Card title={c.title} color={c.color} key={c.id} onClick={onClickHandler(c)}>
+                        <Card
+                            title={c.title}
+                            color={c.color}
+                            key={c.id}
+                            onClick={onClickHandler(c)}
+                            onDragEnd={onDragEndHandler(c)}
+                        >
                             {c.content}
                         </Card>
                     );
                 }).toArray();
 
             return (
-                <Column key={col.id}>
+                <Column key={col.id} column={col.order} row={row.order}>
                     {colCards}
                 </Column>
             );
@@ -68,4 +84,4 @@ function App(props) {
 }
 
 
-export let Application = connect((s) => {return s;})(App);
+export let Application = DragDropContext(HTML5Backend)(connect((s) => {return s;})(App));

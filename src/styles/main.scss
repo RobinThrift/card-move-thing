@@ -94,6 +94,10 @@ body {
   padding: 5px;
   margin: 10px;
   transition: all 250ms;
+  cursor: move;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 
   &:hover {
       @include material-shadow(2);

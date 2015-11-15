@@ -26,7 +26,7 @@ function App(props) {
     }).toArray();
 
     let addColumnHandler = () => {
-        let column = {id: uuid.v4(), title: 'New column', order: props.columns.count()};
+        let column = {id: uuid.v4(), title: 'New column', order: props.columns.count() + 1};
         dispatch(columnActions.addColumn(column));
     };
 

@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import {DragSource} from 'react-dnd';
+import {DragSource, DropTarget} from 'react-dnd';
 import Markdown from 'react-markdown';
 
 import {CardEditor} from './CardEditor';
@@ -30,7 +30,7 @@ class CardComp extends Component {
             classList += ' ' + this.props.color;
         }
 
-        let {connectDragSource} = this.props;
+        let {connectDragSource, connectDropTarget} = this.props;
 
         if (this.state.editing) {
             classList += ' editing';
@@ -41,13 +41,13 @@ class CardComp extends Component {
             );
         }
 
-        return connectDragSource((
-            <div className={classList} onClick={this.onClick.bind(this)}>
+        return connectDragSource(connectDropTarget((
+            <div className={classList} onClick={this.onDoubleClick.bind(this)}>
                 <div className="card-card__content">
                     <Markdown source={this.props.children} />
                 </div>
             </div>
-        ));
+        )));
     }
 }
 
@@ -57,7 +57,8 @@ CardComp.propTypes = {
     onDoubleClick: PropTypes.func,
     onDragEnd: PropTypes.func,
     onChange: PropTypes.func,
-    connectDragSource: PropTypes.func.isRequired
+    connectDragSource: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired
 };
 
 CardComp.defaultProps = {
@@ -67,7 +68,7 @@ CardComp.defaultProps = {
 
 export const CARD_DRAG_TYPE = 'CARD_DRAG_TYPE';
 
-function collect(connect) {
+function collectSource(connect) {
     return {
         connectDragSource: connect.dragSource()
     };
@@ -75,7 +76,7 @@ function collect(connect) {
 
 let cardSource = {
     beginDrag(props) {
-        return {id: props.id};
+        return {data: {id: props.id}, action: 'REORDER'};
     },
 
     endDrag(props, monitor) {
@@ -86,4 +87,19 @@ let cardSource = {
     }
 };
 
-export let Card = DragSource(CARD_DRAG_TYPE, cardSource, collect)(CardComp);
+let cardTarget = {
+    canDrop() {
+        return true;
+    },
+    drop(props) {
+        return {data: {id: props.id}, action: 'REORDER'};
+    }
+};
+
+function collectDrop(connect) {
+    return {
+        connectDropTarget: connect.dropTarget()
+    };
+}
+
+export let Card = DropTarget(CARD_DRAG_TYPE, cardTarget, collectDrop)(DragSource(CARD_DRAG_TYPE, cardSource, collectSource)(CardComp));

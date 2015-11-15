@@ -11,7 +11,7 @@ import {Row} from './Row';
 import {Column} from './Column';
 import {Card} from './Card';
 
-import {updateCard} from '../actions/cards';
+import {updateCard, reorderCard} from '../actions/cards';
 import * as columnActions from '../actions/columns';
 
 function App(props) {
@@ -43,9 +43,13 @@ function App(props) {
     );
 
     let onDragEndHandler = (card) => {
-        return (newPos) => {
-            let c = Object.assign({}, card, newPos);
-            dispatch(updateCard(c.id, c));
+        return (event) => {
+            if (event.action === 'REORDER') {
+                dispatch(reorderCard(card, cards.get(event.data.id)));
+            } else if (event.action === 'CHANGE_COLUMN') {
+                let c = Object.assign({}, card, event.data);
+                dispatch(updateCard(c.id, c));
+            }
         };
     };
 
@@ -53,8 +57,8 @@ function App(props) {
         return (newContent) => {
             let c = Object.assign({}, card, newContent);
             dispatch(updateCard(c.id, c));
-        }
-    }
+        };
+    };
 
     let rowEls = rows.map((row) => {
         let rowCols = columns.map((col) => {
@@ -69,6 +73,7 @@ function App(props) {
                             key={c.id}
                             onDragEnd={onDragEndHandler(c)}
                             onChange={onCardChangeHandler(c)}
+                            id={c.id}
                         >
                             {c.content}
                         </Card>

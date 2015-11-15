@@ -118,7 +118,7 @@ body {
   @include card-gradient(white);
   @include material-shadow(1);
   border-radius: 3px;
-  padding: 5px;
+  padding: 0 5px;
   margin: 10px;
   transition: all 250ms;
   cursor: move;
@@ -171,16 +171,17 @@ body {
 
   &__content--editor {
     width: 100%;
-    resize: vertical;
+    resize: none;
     font-size: 14px;
     padding: 0;
-    margin: 5px 0 0;
+    margin: 5px 0;
     border: 0;
     display: block;
     color: inherit;
     background: transparent; //rgba(0,0,0,.5);
     font-family: inherit;
     outline: none;
+    overflow: hidden;
   }
 
   &.red {
@@ -190,10 +191,12 @@ body {
 
   &.green {
     @include card-gradient(#9bc53d);
+    color: white;
   }
 
   &.blue {
     @include card-gradient(#5bc0eb);
+    color: white;
   }
 
   &.yellow {
@@ -202,6 +205,7 @@ body {
 
   &.orange {
     @include card-gradient(#fa7921);
+    color: white;
   }
 
   &.rainbow {

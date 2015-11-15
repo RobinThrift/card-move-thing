@@ -7,12 +7,11 @@ class CardComp extends Component {
         super(props);
         this.state = {
             editing: false,
-            editableTitle: props.title,
             editableContent: props.children
         };
     }
 
-    onDoubleClick() {
+    onClick() {
         if (!this.state.editing) {
             this.setState({editing: !this.state.editing});
         }
@@ -23,15 +22,10 @@ class CardComp extends Component {
             if (event.keyCode === 13 && !event.shiftKey) {
                 this.setState({editing: false});
                 this.props.onChange({
-                    title: this.state.editableTitle,
                     content: this.state.editableContent
                 });
             }
         }
-    }
-
-    onTitleChange(e) {
-        this.setState({editableTitle: e.target.value});
     }
 
     onContentChange(e) {
@@ -50,12 +44,6 @@ class CardComp extends Component {
             classList += ' editing';
             return (
                 <div className={classList}>
-                    <input
-                        className="card-card__header--editor"
-                        type="text" value={this.state.editableTitle}
-                        onChange={this.onTitleChange.bind(this)}
-                        onKeyDown={this.onKeyDown.bind(this)}
-                    />
                     <textarea
                         className="card-card__content--editor"
                         value={this.state.editableContent}
@@ -66,8 +54,7 @@ class CardComp extends Component {
         }
 
         return connectDragSource((
-            <div className={classList} onClick={this.onDoubleClick.bind(this)}>
-                <h3 className="card-card__header">{this.props.title}</h3>
+            <div className={classList} onClick={this.onClick.bind(this)}>
                 <div className="card-card__content">
                     <Markdown source={this.props.children} />
                 </div>
@@ -78,7 +65,6 @@ class CardComp extends Component {
 
 CardComp.propTypes = {
     color: PropTypes.string,
-    title: PropTypes.string,
     children: PropTypes.string,
     onDoubleClick: PropTypes.func,
     onDragEnd: PropTypes.func,

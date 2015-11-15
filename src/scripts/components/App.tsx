@@ -15,7 +15,7 @@ import {Row} from './Row';
 import {Column} from './Column';
 import {Card} from './Card';
 
-import {updateCard, reorderCard} from '../actions/cards';
+import {updateCard, reorderCard, removeCard} from '../actions/cards';
 import * as columnActions from '../actions/columns';
 
 import {Map} from 'immutable';
@@ -71,7 +71,11 @@ class App extends React.Component<AppProps, {}> {
         let onCardChangeHandler = (card) => {
             return (newContent) => {
                 let c = assign({}, card, newContent) as CardType;
-                dispatch(updateCard(c.id, c));
+                if (c.content.trim().length === 0) {
+                    dispatch(removeCard(c.id));
+                } else {
+                    dispatch(updateCard(c.id, c));
+                }
             };
         };
 

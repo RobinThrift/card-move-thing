@@ -51,6 +51,6 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
                 onKeyDown={this.onKeyDown.bind(this)}
                 onChange={this.onContentChange.bind(this)}
                 ref={(el: HTMLTextAreaElement) => {this.el = el;}}></textarea>
-        )
+        );
     };
 }

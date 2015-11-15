@@ -25,7 +25,7 @@ export let createDocument = async function<T>(name: string, initialState: T, onC
             }
 
             ctx = doc.createContext();
-            ctx.addListener({}, '', () => {}); //workaround for json0 api bug
+            ctx.addListener({}, '', () => {}); // workaround for json0 api bug
             doc.on('after op', () => onChange(ctx.getSnapshot()));
 
             resolve({

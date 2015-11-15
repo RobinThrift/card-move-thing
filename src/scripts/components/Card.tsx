@@ -64,7 +64,7 @@ class CardComp extends React.Component<CardProps, CardState> {
             classList += ' ' + attributes.color;
         }
 
-        markdown = markdown.replace(attributeMatcher, '')
+        markdown = markdown.replace(attributeMatcher, '');
 
         let {connectDragSource, connectDropTarget} = this.props;
 

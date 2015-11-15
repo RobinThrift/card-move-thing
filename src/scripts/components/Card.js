@@ -2,6 +2,8 @@ import React, {PropTypes, Component} from 'react';
 import {DragSource} from 'react-dnd';
 import Markdown from 'react-markdown';
 
+import {CardEditor} from './CardEditor';
+
 class CardComp extends Component {
     constructor(props) {
         super(props);
@@ -17,19 +19,9 @@ class CardComp extends Component {
         }
     }
 
-    onKeyDown(event) {
-        if (this.state.editing) {
-            if (event.keyCode === 13 && !event.shiftKey) {
-                this.setState({editing: false});
-                this.props.onChange({
-                    content: this.state.editableContent
-                });
-            }
-        }
-    }
-
-    onContentChange(e) {
-        this.setState({editableContent: e.target.value});
+    onEditingDone(e) {
+        this.props.onChange(e);
+        this.setState({editing: false});
     }
 
     render() {
@@ -44,11 +36,7 @@ class CardComp extends Component {
             classList += ' editing';
             return (
                 <div className={classList}>
-                    <textarea
-                        className="card-card__content--editor"
-                        value={this.state.editableContent}
-                        onChange={this.onContentChange.bind(this)}
-                        onKeyDown={this.onKeyDown.bind(this)}></textarea>
+                    <CardEditor value={this.props.children} onEditingDone={this.onEditingDone.bind(this)}/>
                 </div>
             );
         }

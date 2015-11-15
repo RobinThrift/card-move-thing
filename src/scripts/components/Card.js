@@ -4,6 +4,8 @@ import Markdown from 'react-markdown';
 
 import {CardEditor} from './CardEditor';
 
+const COLORS = ['red', 'green', 'blue', 'yellow', 'orange', 'rainbow'];
+
 class CardComp extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +28,22 @@ class CardComp extends Component {
 
     render() {
         let classList = 'card-card';
-        if (this.props.color) {
-            classList += ' ' + this.props.color;
+
+        let markdown = this.props.children;
+        let attributeMatcher = /^\-\-\s+([^\s].*)\s*:\s+([^\s].*)/gm;
+
+        let attributes = {};
+        let attr = attributeMatcher.exec(markdown);
+        while (attr) {
+            attributes[attr[1]] = attr[2];
+            attr = attributeMatcher.exec(markdown);
         }
+
+        if (COLORS.indexOf(attributes.color) >= 0) {
+            classList += ' ' + attributes.color;
+        }
+
+        markdown = markdown.replace(attributeMatcher, '')
 
         let {connectDragSource, connectDropTarget} = this.props;
 
@@ -44,7 +59,7 @@ class CardComp extends Component {
         return connectDragSource(connectDropTarget((
             <div className={classList} onClick={this.onClick.bind(this)}>
                 <div className="card-card__content">
-                    <Markdown source={this.props.children} />
+                    <Markdown source={markdown} />
                 </div>
             </div>
         )));

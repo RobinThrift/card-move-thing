@@ -13,7 +13,7 @@ let columns = [
 ];
 let cards = [
     {id: uuid.v4(), order: 2, column: 1, row: 1, content: '# Card 1-1-2\nLorem'},
-    {id: uuid.v4(), order: 1, column: 1, row: 1, content: '# Card 1-1-1\nA very important card.', color: 'red'},
+    {id: uuid.v4(), order: 1, column: 1, row: 1, content: '-- color: red\n# Card 1-1-1\nA very important card.'},
     {id: uuid.v4(), order: 1, column: 2, row: 1, content: '# Card 1-2-1\nSit'},
     {id: uuid.v4(), order: 1, column: 3, row: 3, content: '# Card 3-3-1\nAmet'}
 ];

@@ -36,6 +36,27 @@
   }
 }
 
+@keyframes rainbow {
+  0% {
+    background: #ffff00;
+  }
+  20% {
+    background: #ffcd00;
+  }
+  40% {
+    background: #c3d74b;
+    }
+  60% {
+    background: #c3d7d7;
+  }
+  80% {
+    background: #ffc39b;
+  }
+  100% {
+    background: #ffff00;
+  }
+}
+
 body {
   font-family: 'Roboto Slab', serif;
 }
@@ -181,5 +202,9 @@ body {
 
   &.orange {
     @include card-gradient(#fa7921);
+  }
+
+  &.rainbow {
+    animation: rainbow 5s infinite linear;
   }
 }

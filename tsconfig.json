@@ -5,6 +5,7 @@
         "jsx": "react",
         "moduleResolution": "node",
         "isolatedModules": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "experimentalAsyncFunctions": true
     }
 }

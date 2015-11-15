@@ -1,4 +1,4 @@
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {Map} from 'immutable';
 import {ADD_COLUMN, UPDATE_COLUMN, REMOVE_COLUMN} from '../actions/columns';
 
@@ -21,4 +21,3 @@ export function columnReducer(columns = Map(), action) {
             return columns;
     }
 }
-

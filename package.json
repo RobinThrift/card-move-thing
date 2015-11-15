@@ -22,6 +22,7 @@
     "immutable": "^3.7.5",
     "jsondiff-share-ops": "0.0.1",
     "lodash": "^3.10.1",
+    "node-uuid": "^1.4.7",
     "ot-json0": "^1.0.1",
     "q": "^1.4.1",
     "react": "^0.14.2",
@@ -31,8 +32,7 @@
     "react-markdown": "^1.0.5",
     "react-redux": "^4.0.0",
     "redux": "^3.0.4",
-    "share": "^0.7.40",
-    "uuid": "^2.0.1"
+    "share": "^0.7.40"
   },
   "devDependencies": {
     "browser-sync": "^2.10.0",

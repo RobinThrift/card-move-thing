@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="../react-dnd-html5-backend.d.ts" />
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import * as React from 'react';
 import {connect} from 'react-redux';
 

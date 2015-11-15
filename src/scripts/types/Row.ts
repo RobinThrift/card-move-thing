@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {Record} from 'immutable';
 export type Row = {
     id: string,

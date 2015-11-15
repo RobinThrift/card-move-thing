@@ -1,4 +1,4 @@
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {Map} from 'immutable';
 import {ADD_ROW, UPDATE_ROW, REMOVE_ROW} from '../actions/rows';
 
@@ -21,4 +21,3 @@ export function rowReducer(rows = Map(), action) {
             return rows;
     }
 }
-

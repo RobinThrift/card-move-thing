@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {assign} from 'lodash';
 import {Map} from 'immutable';
 import {ADD_CARD, UPDATE_CARD, REMOVE_CARD, REORDER_CARD} from '../actions/cards';

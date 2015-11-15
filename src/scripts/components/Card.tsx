@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 /// <reference path="../react-markdown.d.ts" />
-/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+/// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import * as React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import * as Markdown from 'react-markdown';

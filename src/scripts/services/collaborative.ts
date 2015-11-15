@@ -24,20 +24,20 @@ let createDocument = async function<T>(name: string, initialState: T, onChange: 
             ctx = doc.createContext();
             ctx.addListener({}, '', () => {}); //workaround for json0 api bug
             doc.on('after op', () => onChange(ctx.getSnapshot()));
+
+            resolve({
+                publish: (state: T) => {
+                    if (!ctx) {
+                        throw new Error('ShareJS context not ready yet');
+                    }
+
+                    let diff = jsondiff.diff(ctx.getSnapshot(), state);
+                    if (diff.length > 0) {
+                        ctx.submitOp(diff);
+                    }
+                }
+            });
         });
-
-        return {
-            publish: (state: T) => {
-                if (!ctx) {
-                    throw new Error('ShareJS context not ready yet');
-                }
-
-                let diff = jsondiff.diff(ctx.getSnapshot(), state);
-                if (diff.length > 0) {
-                    ctx.submitOp(diff);
-                }
-            }
-        };
     });
 };
 

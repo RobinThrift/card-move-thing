@@ -13,11 +13,21 @@ class CardComp extends Component {
     }
 
     onDoubleClick() {
-        this.setState({editing: !this.state.editing});
-        this.props.onChange({
-            title: this.state.editableTitle,
-            content: this.state.editableContent
-        });
+        if (!this.state.editing) {
+            this.setState({editing: !this.state.editing});
+        }
+    }
+
+    onKeyDown(event) {
+        if (this.state.editing) {
+            if (event.keyCode === 13 && !event.shiftKey) {
+                this.setState({editing: false});
+                this.props.onChange({
+                    title: this.state.editableTitle,
+                    content: this.state.editableContent
+                });
+            }
+        }
     }
 
     onTitleChange(e) {
@@ -39,22 +49,24 @@ class CardComp extends Component {
         if (this.state.editing) {
             classList += ' editing';
             return (
-                <div className={classList} onDoubleClick={this.onDoubleClick.bind(this)}>
+                <div className={classList}>
                     <input
                         className="card-card__header--editor"
                         type="text" value={this.state.editableTitle}
                         onChange={this.onTitleChange.bind(this)}
+                        onKeyDown={this.onKeyDown.bind(this)}
                     />
                     <textarea
                         className="card-card__content--editor"
                         value={this.state.editableContent}
-                        onChange={this.onContentChange.bind(this)}></textarea>
+                        onChange={this.onContentChange.bind(this)}
+                        onKeyDown={this.onKeyDown.bind(this)}></textarea>
                 </div>
             );
         }
 
         return connectDragSource((
-            <div className={classList} onDoubleClick={this.onDoubleClick.bind(this)}>
+            <div className={classList} onClick={this.onDoubleClick.bind(this)}>
                 <h3 className="card-card__header">{this.props.title}</h3>
                 <div className="card-card__content">
                     <Markdown source={this.props.children} />

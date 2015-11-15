@@ -1,5 +1,10 @@
+/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path='../../node_modules/immutable/dist/Immutable.d.ts'/>
 import {Map} from 'immutable';
-import uuid from 'uuid';
+import * as uuid from 'node-uuid';
+import {Row} from './types/Row';
+import {Column} from './types/Column';
+import {Card} from './types/Card';
 
 let rows = [
     {id: uuid.v4(), title: 'Row 1', order: 1},
@@ -21,11 +26,11 @@ let cards = [
 export default {
     rows: rows.reduce((map, r) => {
         return map.set(r.id, r);
-    }, new Map()),
+    }, Map<string, Row>()),
     columns: columns.reduce((map, c) => {
         return map.set(c.id, c);
-    }, new Map()),
+    }, Map<string, Column>()),
     cards: cards.reduce((map, c) => {
         return map.set(c.id, c);
-    }, new Map())
+    }, Map<string, Card>())
 };

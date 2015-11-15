@@ -1,12 +1,31 @@
-import React, {PropTypes, Component} from 'react';
+/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../react-markdown.d.ts" />
+/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+import * as React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
-import Markdown from 'react-markdown';
+import * as Markdown from 'react-markdown';
+
+type CardProps = {
+    title: string,
+    children?: string,
+    onChange?: Function,
+    onDragEnd?: Function,
+    color?: string,
+    connectDragSource: Function,
+    connectDropTarget: Function
+};
+
+type CardState = {
+    editing?: boolean,
+    editableContent?: string,
+    editableTitle?: string
+};
 
 import {CardEditor} from './CardEditor';
 
 const COLORS = ['red', 'green', 'blue', 'yellow', 'orange', 'rainbow'];
 
-class CardComp extends Component {
+class CardComp extends React.Component<CardProps, CardState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,7 +53,7 @@ class CardComp extends Component {
         let markdown = this.props.children;
         let attributeMatcher = /^\-\-\s+([^\s].*)\s*:\s+([^\s].*)/gm;
 
-        let attributes = {};
+        let attributes = {color: ''};
         let attr = attributeMatcher.exec(markdown);
         while (attr) {
             attributes[attr[1]] = attr[2];
@@ -66,22 +85,15 @@ class CardComp extends Component {
             </div>
         )));
     }
+
+    // tslint is being an arse -.-
+    /* tslint:disable */
+    static defaultProps = {
+        onDragEnd: () => {},
+        onChange: () => {}
+    }
+    /* tslint:enable */
 }
-
-CardComp.propTypes = {
-    color: PropTypes.string,
-    children: PropTypes.string,
-    onDoubleClick: PropTypes.func,
-    onDragEnd: PropTypes.func,
-    onChange: PropTypes.func,
-    connectDragSource: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired
-};
-
-CardComp.defaultProps = {
-    onDragEnd: () => {},
-    onChange: () => {}
-};
 
 export const CARD_DRAG_TYPE = 'CARD_DRAG_TYPE';
 

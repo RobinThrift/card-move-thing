@@ -8,8 +8,8 @@ var gulp       = require('gulp'),
         paths: {
             html: 'src/index.html',
             scripts: {
-                main: 'src/scripts/app.js',
-                watch: ['src/scripts/**/*', 'src/scripts/*']
+                main: 'src/scripts/app.tsx',
+                watch: ['src/scripts/**/*.ts', 'src/scripts/*.ts', 'src/scripts/**/*.tsx', 'src/scripts/*.tsx']
             },
             styles: {
                 main: 'src/styles/main.scss',

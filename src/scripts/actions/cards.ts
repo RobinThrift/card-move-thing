@@ -1,8 +1,8 @@
 
-export const ADD_CARD = Symbol();
-export const UPDATE_CARD = Symbol();
-export const REMOVE_CARD = Symbol();
-export const REORDER_CARD = Symbol();
+export const ADD_CARD = {};
+export const UPDATE_CARD = {};
+export const REMOVE_CARD = {};
+export const REORDER_CARD = {};
 
 export function addCard(card) {
     return {type: ADD_CARD, card};

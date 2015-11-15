@@ -1,7 +1,7 @@
 
-export const ADD_COLUMN = Symbol();
-export const UPDATE_COLUMN = Symbol();
-export const REMOVE_COLUMN = Symbol();
+export const ADD_COLUMN = {};
+export const UPDATE_COLUMN = {};
+export const REMOVE_COLUMN = {};
 
 export function addColumn(column) {
     return {type: ADD_COLUMN, column};

@@ -1,12 +1,19 @@
 
 module.exports = function(gulp, config) {
-    var eslint = require('gulp-eslint');
+    var tslint = require('gulp-tslint');
     var join = require('path').join;
+    var stylish = require('gulp-tslint-stylish');
+    var tslintconfig;
+    try {
+        tslintconfig = require(join(config.cwd, 'tslint.json'));
+    } catch (e) {
+        console.log(`Can't find tslint.json at ${config.cwd}`)
+    }
     gulp.task('lint', function() {
         return gulp.src(config.paths.scripts.watch)
-            .pipe(eslint({
-                configFile: join(config.cwd, '.eslintrc')
+            .pipe(tslint({
+                configuration: tslintconfig
             }))
-            .pipe(eslint.formatEach('stylish'));
+            .pipe(tslint.report(stylish));
     });
 }

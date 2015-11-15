@@ -1,6 +1,16 @@
-import React, {PropTypes, Component} from 'react';
+import * as React from 'react';
 
-class CardEditorComp extends Component {
+type CardEditorProps = {
+    value: string,
+    onEditingDone: Function
+}
+
+type CardEditorState = {
+    editableContent: string
+}
+
+export class CardEditor extends React.Component<CardEditorProps, CardEditorState> {
+    private el: HTMLTextAreaElement;
     constructor(props) {
         super(props);
         this.state = {
@@ -40,14 +50,7 @@ class CardEditorComp extends Component {
                 value={this.state.editableContent}
                 onKeyDown={this.onKeyDown.bind(this)}
                 onChange={this.onContentChange.bind(this)}
-                ref={(el) => {this.el = el;}}></textarea>
+                ref={(el: HTMLTextAreaElement) => {this.el = el;}}></textarea>
         )
     };
 }
-
-CardEditorComp.propTypes = {
-    value: PropTypes.string,
-    onEditingDone: PropTypes.func
-};
-
-export let CardEditor = CardEditorComp;

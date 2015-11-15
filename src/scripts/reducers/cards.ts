@@ -1,13 +1,15 @@
-
+/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path='../../../node_modules/immutable/dist/Immutable.d.ts'/>
+import {assign} from 'lodash';
 import {Map} from 'immutable';
-import {ADD_CARD, UPDATE_CARD, REMOVE_CARD, REORDER_CARD} from '../actions/cards.js';
+import {ADD_CARD, UPDATE_CARD, REMOVE_CARD, REORDER_CARD} from '../actions/cards';
 
 function sortCards(c1, c2) {
     return c1.order - c2.order;
 }
 
 function normalizeOrders(card, id, map) {
-    return Object.assign({}, card, {
+    return assign({}, card, {
         order: map
             .filter((c) => {
                 return card.column === c.column
@@ -21,12 +23,12 @@ function normalizeOrders(card, id, map) {
 
 function switchValues(a, b, field) {
     return [
-        Object.assign({}, a, {[field]: b[field]}),
-        Object.assign({}, b, {[field]: a[field]})
+        assign({}, a, {[field]: b[field]}),
+        assign({}, b, {[field]: a[field]})
     ];
 }
 
-export function cardReducer(cards = new Map(), action) {
+export function cardReducer(cards = Map(), action) {
     switch (action.type) {
         case ADD_CARD:
             return cards.set(action.card.id, action.card).sort(sortCards).map(normalizeOrders);
@@ -36,25 +38,28 @@ export function cardReducer(cards = new Map(), action) {
             }
             return cards;
         case REMOVE_CARD:
-            return cards.delete(action.id, action.card).sort(sortCards);
+            return cards.delete(action.id).sort(sortCards);
         case REORDER_CARD:
             let {card, otherCard} = action;
-            if (card.column !== otherCard.column || card.row !== otherCard.row) {
-                card = Object.assign({}, card, {order: otherCard.order});
+            if (otherCard.order < card.order) {
+                card = assign({}, card, {order: otherCard.order});
+                otherCard = assign({}, otherCard, {order: otherCard.order + 1});
+                console.log(otherCard);
+            } else {
+                card = assign({}, card, {order: otherCard.order + 1});
             }
 
             if (card.column !== otherCard.column) {
-                card = Object.assign({}, card, {column: otherCard.column});
+                card = assign({}, card, {column: otherCard.column});
             }
 
             if (card.row !== otherCard.row) {
-                card = Object.assign({}, card, {row: otherCard.row});
+                card = assign({}, card, {row: otherCard.row});
             }
 
-            let [mutCard, mutOtherCard] = switchValues(card, otherCard, 'order');
             return cards
-                .set(card.id, mutCard)
-                .set(otherCard.id, mutOtherCard)
+                .set(card.id, card)
+                .set(otherCard.id, otherCard)
                 .sort(sortCards)
                 .map(normalizeOrders);
         default:

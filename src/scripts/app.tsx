@@ -1,8 +1,8 @@
-import React from 'react';
+/// <reference path="../../typings/tsd.d.ts" />
+import * as React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {Application} from './components/App';
-
 import {state} from './stores/state';
 
 render(

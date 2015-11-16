@@ -24,6 +24,7 @@ let cards = [
 ];
 
 export default {
+    id: localStorage.getItem('doc_id') || uuid.v4(),
     rows: rows.reduce((map, r) => {
         return map.set(r.id, r);
     }, Map<string, Row>()),

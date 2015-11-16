@@ -3,6 +3,7 @@ export const ADD_CARD = {};
 export const UPDATE_CARD = {};
 export const REMOVE_CARD = {};
 export const REORDER_CARD = {};
+export const SYNC_CARDS = {};
 
 export function addCard(card) {
     return {type: ADD_CARD, card};
@@ -18,4 +19,8 @@ export function removeCard(id) {
 
 export function reorderCard(card, otherCard) {
     return {type: REORDER_CARD, card, otherCard};
+}
+
+export function syncCards(cards) {
+    return {type: SYNC_CARDS, cards};
 }

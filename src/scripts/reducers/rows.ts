@@ -1,6 +1,6 @@
 /// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {Map} from 'immutable';
-import {ADD_ROW, UPDATE_ROW, REMOVE_ROW} from '../actions/rows';
+import {ADD_ROW, UPDATE_ROW, REMOVE_ROW, SYNC_ROWS} from '../actions/rows';
 
 function sortRows(r1, r2) {
     return r1.order - r2.order;
@@ -8,6 +8,8 @@ function sortRows(r1, r2) {
 
 export function rowReducer(rows = Map(), action) {
     switch (action.type) {
+        case SYNC_ROWS:
+            return Map(action.rows);
         case ADD_ROW:
             return rows.set(action.row.id, action.row).sort(sortRows);
         case UPDATE_ROW:

@@ -1,16 +1,16 @@
 /// <reference path="../../../typings/q/Q.d.ts" />
 
-import sharejs from 'share';
-import {BCSocket} from './node_modules/browserchannel/dist/bcsocket';
-import json from 'ot-json0';
-import jsondiff from 'jsondiff-share-ops';
+import * as sharejs from 'share';
+import {BCSocket} from 'browserchannel/dist/bcsocket';
+import * as json from 'ot-json0';
+import * as jsondiff from 'jsondiff-share-ops';
 import {Promise} from 'q';
 
 declare class Document<T> {
     publish: (state: T) => any;
 }
 
-export let createDocument = async function<T>(name: string, initialState: T, onChange: (x: T) => any) {
+export let createDocument = function<T>(name: string, initialState: T, onChange: (x: T) => any) {
     let socket = new BCSocket(null, {reconnect: true});
     let sjs = new sharejs.Connection(socket);
     let doc = sjs.get('card-move-thing', name);
@@ -25,7 +25,7 @@ export let createDocument = async function<T>(name: string, initialState: T, onC
             }
 
             ctx = doc.createContext();
-            ctx.addListener({}, '', () => {}); // workaround for json0 api bug
+            doc.addListener({}, () => {}); // workaround for json0 api bug
             doc.on('after op', () => onChange(ctx.getSnapshot()));
 
             resolve({

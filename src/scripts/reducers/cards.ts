@@ -2,7 +2,7 @@
 /// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {assign} from 'lodash';
 import {Map} from 'immutable';
-import {ADD_CARD, UPDATE_CARD, REMOVE_CARD, REORDER_CARD} from '../actions/cards';
+import {ADD_CARD, UPDATE_CARD, REMOVE_CARD, REORDER_CARD, SYNC_CARDS} from '../actions/cards';
 
 function sortCards(c1, c2) {
     return c1.order - c2.order;
@@ -30,6 +30,8 @@ function switchValues(a, b, field) {
 
 export function cardReducer(cards = Map(), action) {
     switch (action.type) {
+        case SYNC_CARDS:
+            return Map(action.cards);
         case ADD_CARD:
             return cards.set(action.card.id, action.card).sort(sortCards).map(normalizeOrders);
         case UPDATE_CARD:

@@ -1,6 +1,6 @@
 /// <reference path='../../../node_modules/immutable/dist/immutable.d.ts'/>
 import {Map} from 'immutable';
-import {ADD_COLUMN, UPDATE_COLUMN, REMOVE_COLUMN} from '../actions/columns';
+import {ADD_COLUMN, UPDATE_COLUMN, REMOVE_COLUMN, SYNC_COLUMNS} from '../actions/columns';
 
 function sortColumns(c1, c2) {
     return c1.order - c1.order;
@@ -8,6 +8,8 @@ function sortColumns(c1, c2) {
 
 export function columnReducer(columns = Map(), action) {
     switch (action.type) {
+        case SYNC_COLUMNS:
+            return Map(action.columns);
         case ADD_COLUMN:
             return columns.set(action.column.id, action.column).sort(sortColumns);
         case UPDATE_COLUMN:

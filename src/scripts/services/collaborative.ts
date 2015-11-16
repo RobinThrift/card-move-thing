@@ -1,9 +1,9 @@
 /// <reference path="../../../typings/q/Q.d.ts" />
 
-import * as sharejs from 'share';
-import {BCSocket} from 'browserchannel/dist/bcsocket';
-import * as json from 'ot-json0';
-import * as jsondiff from 'jsondiff-share-ops';
+let sharejs = require('share');
+let BCSocket = require('browserchannel/dist/bcsocket').BCSocket;
+let json = require('ot-json0');
+let jsondiff = require('jsondiff-share-ops');
 import {Promise} from 'q';
 
 declare class Document<T> {

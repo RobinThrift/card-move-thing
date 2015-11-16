@@ -16,14 +16,12 @@ export type State = {
     cards: Map<string, Card>
 }
 
-// let initState: State = {
-//     id: uuid(),
-//     rows: Map<string, Row>(),
-//     columns: Map<string, Column>(),
-//     cards: Map<string, Card>()
-// };
+export type SharedState = {
+    rows: Map<string, Row>,
+    columns: Map<string, Column>,
+    cards: Map<string, Card>
+}
 
 import mockData from '../mockData';
 
 export let state = createStore(appReducers, mockData);
-

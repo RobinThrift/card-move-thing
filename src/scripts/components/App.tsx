@@ -38,7 +38,7 @@ class App extends React.Component<AppProps, {isNew: boolean}> {
     constructor(props: AppProps) {
         super(props);
               
-        let documentIdMatcher = window.location.pathname.match(/\/b\/([A-Za-z0-9]+)/);
+        let documentIdMatcher = window.location.pathname.match(/\/b\/([^\/]+)/);
         if (documentIdMatcher) {
             this.state = {isNew: false};
             this.props.onDocumentNameSet(documentIdMatcher[1]);

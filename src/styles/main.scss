@@ -140,6 +140,14 @@ body {
       z-index: 42; //ensures that the shadow is over other cards
   }
 
+  &--floating {
+      top: 10%;
+      left: 10%;
+      z-index: 9999;
+      width: 300px;
+      height: 150px;
+  }
+
   &__content {
     font-size: 14px;
     width: 100%;

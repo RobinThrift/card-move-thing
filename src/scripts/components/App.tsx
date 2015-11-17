@@ -15,14 +15,16 @@ import * as uuid from 'node-uuid';
 
 import {Row} from './Row';
 import {Column} from './Column';
-import {Card} from './Card';
 import {CreateBoardDialog} from './CreateBoardDialog';
+import {ReorderableCard} from './ReorderableCard';
+import {FloatingCard} from './FloatingCard';
 
-import {updateCard, reorderCard, removeCard} from '../actions/cards';
+import {updateCard, reorderCard, removeCard, addCard} from '../actions/cards';
 import * as columnActions from '../actions/columns';
 
 import {createDocument} from '../services/collaborative';
 
+import {Card as CardType} from '../types/Card';
 import {Map} from 'immutable';
 type AppProps = {
     onDocumentNameSet: (id: string) => any,
@@ -32,30 +34,44 @@ type AppProps = {
     dispatch: Function
 };
 
-import {Card as CardType} from '../types/Card';
+type AppState = {
+    newCard?: CardType,
+    isNew?: boolean
+}
 
-class App extends React.Component<AppProps, {isNew: boolean}> {
+class App extends React.Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
-              
+        this.state = {
+            newCard: null
+        };
+
         let documentIdMatcher = window.location.pathname.match(/\/b\/([^\/]+)/);
         if (documentIdMatcher) {
-            this.state = {isNew: false};
+            this.state.isNew = false;
             this.props.onDocumentNameSet(documentIdMatcher[1]);
         } else {
-            this.state = {isNew: true};
+            this.state.isNew = true;
         }
     }
-    
+
     createBoard(id: string) {
         this.props.onDocumentNameSet(id);
         this.setState({isNew: false});
     }
-    
+
     onAddCardClick() {
-        //TODO actually add a card
+        this.setState({
+            newCard: {
+                id: uuid.v4(),
+                order: 0,
+                row: 0,
+                column: 0,
+                content: ''
+            }
+        });
     }
-    
+
     render() {
         let {rows, columns, cards, dispatch} = this.props;
 
@@ -86,11 +102,15 @@ class App extends React.Component<AppProps, {isNew: boolean}> {
 
         let onDragEndHandler = (card) => {
             return (event) => {
-                if (event.action === 'REORDER') {
-                    dispatch(reorderCard(card, cards.get(event.data.id)));
-                } else if (event.action === 'CHANGE_COLUMN') {
-                    let c = assign({}, card, event.data) as CardType;
-                    dispatch(updateCard(c.id, c));
+                switch (event.action) {
+                    case 'NEW_CARD':
+                        this.setState({newCard: null});
+                        return dispatch(addCard(event.data));
+                    case 'REORDER':
+                        return dispatch(reorderCard(card, cards.get(event.data.id)));
+                    case 'CHANGE_COLUMN':
+                        let c = assign({}, card, event.data) as CardType;
+                        return dispatch(updateCard(c.id, c));
                 }
             };
         };
@@ -113,7 +133,7 @@ class App extends React.Component<AppProps, {isNew: boolean}> {
                     .sort((c1, c2) => c1.order - c2.order)
                     .map((c) => {
                         return (
-                            <Card
+                            <ReorderableCard
                                 title={c.title}
                                 color={c.color}
                                 key={c.id}
@@ -122,7 +142,7 @@ class App extends React.Component<AppProps, {isNew: boolean}> {
                                 id={c.id}
                             >
                                 {c.content}
-                            </Card>
+                            </ReorderableCard>
                         );
                     }).toArray();
 
@@ -140,19 +160,26 @@ class App extends React.Component<AppProps, {isNew: boolean}> {
             );
         }).toArray();
 
-        
         return (
             <div>
-                {header}
-                {rowEls}
-                <FloatingActionButton onClick={this.onAddCardClick.bind(this)} style={{
-                    position: 'absolute',
-                    right: '22px',
-                    bottom: '22px'
-                }}>
-                    <FontIcon className="material-icons">add</FontIcon>
-                </FloatingActionButton>
-                
+                <div>
+                    {header}
+                    {rowEls}
+                </div>
+                {(this.state.newCard) ?
+                    <FloatingCard
+                        onDragEnd={onDragEndHandler(this.state.newCard)}
+                        onChange={onCardChangeHandler(this.state.newCard)}
+                        id={this.state.newCard.id} />
+                :
+                    <FloatingActionButton onClick={this.onAddCardClick.bind(this)} style={{
+                        position: 'absolute',
+                        right: '22px',
+                        bottom: '22px'
+                    }}>
+                        <FontIcon className="material-icons">add</FontIcon>
+                    </FloatingActionButton>
+                }
                 <CreateBoardDialog open={this.state.isNew} onBoardCreate={this.createBoard.bind(this)} />
             </div>
         );

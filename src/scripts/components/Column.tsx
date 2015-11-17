@@ -1,7 +1,8 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 import * as React from 'react';
 import {DropTarget} from 'react-dnd';
-import {CARD_DRAG_TYPE} from './Card';
+import {CARD_DRAG_TYPE} from './ReorderableCard';
+import {FLOATING_CARD_DRAG_TYPE} from './FloatingCard';
 
 export type ColumnProps = {
     heading?: boolean,
@@ -21,9 +22,14 @@ let columnTarget = {
         if (monitor.didDrop()) {
             return;
         }
-        /* eslint-disable */
-        return {data: {row: props.row, column: props.column}, action: 'CHANGE_COLUMN'};
-        /* eslint-enable */
+        let item = monitor.getItem();
+        if (item.action === 'NEW_CARD') {
+            item.data.column = props.column;
+            item.data.row = props.row;
+            return item;
+        } else {
+            return {data: {row: props.row, column: props.column}, action: 'CHANGE_COLUMN'};
+        }
     }
 };
 
@@ -33,7 +39,7 @@ function collect(connect) {
     };
 }
 
-@DropTarget(CARD_DRAG_TYPE, columnTarget, collect)
+@DropTarget([CARD_DRAG_TYPE, FLOATING_CARD_DRAG_TYPE], columnTarget, collect)
 export class Column extends React.Component<ColumnProps, {}> {
     render() {
         let props = this.props;

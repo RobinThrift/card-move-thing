@@ -7,10 +7,8 @@ import {Map} from 'immutable';
 import {Row} from '../types/Row';
 import {Column} from '../types/Column';
 import {Card} from '../types/Card';
-import {v4 as uuid} from 'node-uuid';
 
 export type State = {
-    id: string,
     rows: Map<string, Row>,
     columns: Map<string, Column>,
     cards: Map<string, Card>

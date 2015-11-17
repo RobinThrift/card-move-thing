@@ -59,6 +59,10 @@ class App extends React.Component<AppProps, AppState> {
         this.props.onDocumentNameSet(id);
         this.setState({isNew: false});
     }
+    
+    onAddCardCancelled() {
+        this.setState({newCard: null});
+    }
 
     onAddCardClick() {
         this.setState({
@@ -93,7 +97,7 @@ class App extends React.Component<AppProps, AppState> {
                 <span onClick={addColumnHandler.bind(this)}>+</span>
             </Column>
         );
-
+        
         let header = (
             <Row header={true}>
                 {headerCols}
@@ -170,6 +174,7 @@ class App extends React.Component<AppProps, AppState> {
                     <FloatingCard
                         onDragEnd={onDragEndHandler(this.state.newCard)}
                         onChange={onCardChangeHandler(this.state.newCard)}
+                        onEditingCancelled={this.onAddCardCancelled.bind(this)}
                         id={this.state.newCard.id} />
                 :
                     <FloatingActionButton onClick={this.onAddCardClick.bind(this)} style={{

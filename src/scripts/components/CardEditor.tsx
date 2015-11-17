@@ -2,7 +2,8 @@ import * as React from 'react';
 
 type CardEditorProps = {
     value: string,
-    onEditingDone: Function
+    onEditingDone: Function,
+    onEditingCancelled: Function
 }
 
 type CardEditorState = {
@@ -25,10 +26,12 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
     };
 
     onKeyDown(e) {
-        if (e.keyCode === 13 && !e.shiftKey) {
+        if (e.keyCode === 13 && !e.shiftKey) { // Shift + Enter
             this.props.onEditingDone({
                 content: e.target.value
             });
+        } else if (e.keyCode === 27) { // Esc
+            this.props.onEditingCancelled();
         }
     };
 

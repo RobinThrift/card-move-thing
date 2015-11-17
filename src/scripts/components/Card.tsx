@@ -8,6 +8,7 @@ export interface CardProps {
     title: string;
     children?: string;
     onChange?: Function;
+    onEditingCancelled?: Function;
     color?: string;
     className: string;
 };
@@ -43,6 +44,11 @@ export class Card extends React.Component<CardProps, CardState> {
         this.props.onChange(e);
         this.setState({editing: false});
     }
+    
+    onEditingCancelled() {
+        this.props.onEditingCancelled();
+        this.setState({editing: false});
+    }
 
     render() {
         let classList = 'card-card ' + this.props.className;
@@ -67,7 +73,10 @@ export class Card extends React.Component<CardProps, CardState> {
             classList += ' editing';
             return (
                 <div className={classList}>
-                    <CardEditor value={this.props.children} onEditingDone={this.onEditingDone.bind(this)}/>
+                    <CardEditor
+                        value={this.props.children}
+                        onEditingDone={this.onEditingDone.bind(this)}
+                        onEditingCancelled={this.onEditingCancelled.bind(this)} />
                 </div>
             );
         }
@@ -85,6 +94,7 @@ export class Card extends React.Component<CardProps, CardState> {
     /* tslint:disable */
     static defaultProps = {
         onChange: () => {},
+        onEditingCancelled: () => {},
         className: ''
     }
     /* tslint:enable */

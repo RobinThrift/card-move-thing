@@ -22,19 +22,22 @@ let stateToJS: (state: State) => SharedState = (state: State) => {
   };
 };
 
-let documentId = window.location.pathname.match(/\/b\/([A-Za-z0-9]+)/)[1];
-createDocument<SharedState>(documentId, stateToJS(state), (newState) => {
-    state.dispatch(syncCards(newState.cards));
-    state.dispatch(syncColumns(newState.columns));
-    state.dispatch(syncRows(newState.rows));
-}).then((doc) => {
-    state.subscribe(() => doc.publish(stateToJS(state)));
-});
+let connectToDocument = (documentId) => {
+    createDocument<SharedState>(documentId, stateToJS(state), (newState) => {
+        state.dispatch(syncCards(newState.cards));
+        state.dispatch(syncColumns(newState.columns));
+        state.dispatch(syncRows(newState.rows));
+    }).then((doc) => {
+        state.subscribe(() => doc.publish(stateToJS(state)));
+    });
+
+    window.history.replaceState(null, null, '/b/' + documentId);
+};
 
 render(
     (
         <Provider store={state}>
-            <Application />
+            <Application onDocumentNameSet={connectToDocument} />
         </Provider>
     ),
     document.getElementById('react-target')

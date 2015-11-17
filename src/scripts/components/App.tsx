@@ -9,7 +9,7 @@ import {assign} from 'lodash';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend = require('react-dnd-html5-backend');
 
-import {FloatingActionButton, FontIcon} from 'material-ui';
+import {FloatingActionButton, FontIcon, Dialog, TextField} from 'material-ui';
 
 import * as uuid from 'node-uuid';
 
@@ -20,17 +20,46 @@ import {Card} from './Card';
 import {updateCard, reorderCard, removeCard} from '../actions/cards';
 import * as columnActions from '../actions/columns';
 
+import {createDocument} from '../services/collaborative';
+
 import {Map} from 'immutable';
 type AppProps = {
+    onDocumentNameSet: (id: string) => any,
     rows: Map<string, any>,
     columns: Map<string, any>,
     cards: Map<string, any>,
     dispatch: Function
-}
+};
 
 import {Card as CardType} from '../types/Card';
 
-class App extends React.Component<AppProps, {}> {
+import randomId from '../services/id';
+import slug = require('slug');
+
+class App extends React.Component<AppProps, {id: string, idSet: boolean}> {
+    constructor(props: AppProps) {
+        super(props);
+              
+        let documentIdMatcher = window.location.pathname.match(/\/b\/([A-Za-z0-9]+)/);
+        if (documentIdMatcher) {
+            this.state = {id: '', idSet: true};
+            this.props.onDocumentNameSet(documentIdMatcher[1]);
+        } else {
+            this.state = {id: '', idSet: false};
+        }
+    }
+    
+    onBoardNameChange(e) {
+        this.setState({id: e.target.value, idSet: false});
+    }
+    
+    onIdDialogClose() {
+        let id = this.state.id.trim().length > 0 ? slug(this.state.id.trim()) : randomId(10);
+        
+        this.setState({id: id, idSet: true});
+        this.props.onDocumentNameSet(id);
+    }
+    
     onAddCardClick() {
         //TODO actually add a card
     }
@@ -120,8 +149,7 @@ class App extends React.Component<AppProps, {}> {
         }).toArray();
 
         let standardActions = [
-            { text: 'Cancel' },
-            { text: 'Submit', ref: 'submit' }
+            { text: 'Create board', ref: 'submit', onClick: this.onIdDialogClose.bind(this) }
         ];
         
         return (
@@ -135,6 +163,15 @@ class App extends React.Component<AppProps, {}> {
                 }}>
                     <FontIcon className="material-icons">add</FontIcon>
                 </FloatingActionButton>
+                
+                <Dialog
+                    title="Hey there, fellow card mover!"
+                    actions={standardActions}
+                    actionFocus="submit"
+                    open={!this.state.idSet}>
+                    Enter a name for the board you want to create, or leave it empty to create a randomly named board.
+                    <TextField floatingLabelText="Board name" style={{width: '100%'}} onChange={this.onBoardNameChange.bind(this)} />
+                </Dialog>
             </div>
         );
     }

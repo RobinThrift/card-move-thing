@@ -109,7 +109,10 @@ class App extends React.Component<AppProps, AppState> {
                 switch (event.action) {
                     case 'NEW_CARD':
                         this.setState({newCard: null});
-                        return dispatch(addCard(event.data));
+                        if (event.data.content.trim().length > 0) { // only add non-empty cards
+                            return dispatch(addCard(event.data));
+                        }
+                        return null;
                     case 'REORDER':
                         return dispatch(reorderCard(card, cards.get(event.data.id)));
                     case 'CHANGE_COLUMN':

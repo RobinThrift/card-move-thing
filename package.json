@@ -22,6 +22,7 @@
     "immutable": "^3.7.5",
     "jsondiff-share-ops": "0.0.1",
     "lodash": "^3.10.1",
+    "material-ui": "^0.13.2",
     "node-uuid": "^1.4.7",
     "ot-json0": "^1.0.1",
     "q": "^1.4.1",
@@ -53,6 +54,6 @@
     "babelify": "^7.2.0"
   },
   "browser": {
-      "share": "share/lib/client"
+    "share": "share/lib/client"
   }
 }

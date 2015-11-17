@@ -2,7 +2,7 @@
 module.exports = function(gulp, config) {
     var browsersync = require('browser-sync').create();
 
-    gulp.task('serve', ['default'], function() {
+    gulp.task('live', function() {
         var join = require('path').join;
 
         browsersync.init({
@@ -25,4 +25,6 @@ module.exports = function(gulp, config) {
         gulp.watch(config.paths.html, ['html'])
             .on('change', reload);
     });
+
+    gulp.task('serve', ['default', 'live']);
 };

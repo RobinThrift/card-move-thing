@@ -41,4 +41,18 @@ app.use(browserChannel(function (client) {
 	return share.listen(stream);
 }));
 
+app.get('/b/new', function(req, res) {
+	// generate a random 10-digit board id and redirect to it
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
+	var id = '';
+	for (var i = 0; i < 10; i++) {
+		id += chars[Math.random() * chars.length | 0];
+	}
+	res.redirect('/b/' + id);
+});
+
+app.get('/b/:id', function(req, res) {
+	res.sendFile('index.html', {root: '../dist'});
+});
+
 app.listen(process.argv[2] || 8080);

@@ -22,7 +22,8 @@ let stateToJS: (state: State) => SharedState = (state: State) => {
   };
 };
 
-createDocument<SharedState>('doc', stateToJS(state), (newState) => {
+let documentId = window.location.pathname.match(/\/b\/([A-Za-z0-9]+)/)[1];
+createDocument<SharedState>(documentId, stateToJS(state), (newState) => {
     state.dispatch(syncCards(newState.cards));
     state.dispatch(syncColumns(newState.columns));
     state.dispatch(syncRows(newState.rows));

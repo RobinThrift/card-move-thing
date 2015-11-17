@@ -14,18 +14,17 @@ type CreateBoardDialogState = {
 }
 
 export class CreateBoardDialog extends React.Component<CreateBoardDialogProps, CreateBoardDialogState> {
-    
     constructor(props) {
         super(props);
         this.state = {
             id: ''
         };
     };
-    
+
     onBoardNameChange(e) {
         this.setState({id: e.target.value});
     }
-    
+
     onCreateClick() {
         let id;
         if (this.state.id.trim().length > 0) {
@@ -33,7 +32,7 @@ export class CreateBoardDialog extends React.Component<CreateBoardDialogProps, C
         } else {
             id = randomId(10);
         }
-        
+
         this.setState({id: id});
         this.props.onBoardCreate(id);
     }
@@ -42,7 +41,7 @@ export class CreateBoardDialog extends React.Component<CreateBoardDialogProps, C
         let actions = [
             { text: 'Create board', ref: 'create', onClick: this.onCreateClick.bind(this) }
         ];
-        
+
         return (
             <Dialog
                 title="Hey there, fellow card mover!"

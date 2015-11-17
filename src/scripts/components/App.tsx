@@ -9,6 +9,8 @@ import {assign} from 'lodash';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend = require('react-dnd-html5-backend');
 
+import {FloatingActionButton, FontIcon} from 'material-ui';
+
 import * as uuid from 'node-uuid';
 
 import {Row} from './Row';
@@ -29,6 +31,10 @@ type AppProps = {
 import {Card as CardType} from '../types/Card';
 
 class App extends React.Component<AppProps, {}> {
+    onAddCardClick() {
+        //TODO actually add a card
+    }
+    
     render() {
         let {rows, columns, cards, dispatch} = this.props;
 
@@ -113,10 +119,22 @@ class App extends React.Component<AppProps, {}> {
             );
         }).toArray();
 
+        let standardActions = [
+            { text: 'Cancel' },
+            { text: 'Submit', ref: 'submit' }
+        ];
+        
         return (
             <div>
-              {header}
-              {rowEls}
+                {header}
+                {rowEls}
+                <FloatingActionButton onClick={this.onAddCardClick.bind(this)} style={{
+                    position: 'absolute',
+                    right: '22px',
+                    bottom: '22px'
+                }}>
+                    <FontIcon className="material-icons">add</FontIcon>
+                </FloatingActionButton>
             </div>
         );
     }

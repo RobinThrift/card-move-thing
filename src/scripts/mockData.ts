@@ -7,20 +7,18 @@ import {Column} from './types/Column';
 import {Card} from './types/Card';
 
 let rows = [
-    {id: uuid.v4(), title: 'Row 1', order: 1},
-    {id: uuid.v4(), title: 'Row 2', order: 2},
-    {id: uuid.v4(), title: 'Row 3', order: 3}
+    {id: uuid.v4(), title: 'INK 1', order: 1},
+    {id: uuid.v4(), title: 'INK 2', order: 2},
+    {id: uuid.v4(), title: 'INK 3', order: 3}
 ];
 let columns = [
-    {id: uuid.v4(), title: 'Column 1', order: 1},
-    {id: uuid.v4(), title: 'Column 2', order: 2},
-    {id: uuid.v4(), title: 'Column 3', order: 3}
+    {id: uuid.v4(), title: 'Spiel starten', order: 1},
+    {id: uuid.v4(), title: 'Map laden', order: 2},
+    {id: uuid.v4(), title: 'Pi2Go platzieren', order: 3},
+    {id: uuid.v4(), title: 'Spiel stoppen', order: 4},
+    {id: uuid.v4(), title: 'Spiel ansehen', order: 5}
 ];
 let cards = [
-    {id: uuid.v4(), order: 2, column: 1, row: 1, content: '# Card 1-1-2\nLorem'},
-    {id: uuid.v4(), order: 1, column: 1, row: 1, content: '-- color: red\n# Card 1-1-1\nA very important card.'},
-    {id: uuid.v4(), order: 1, column: 2, row: 1, content: '# Card 1-2-1\nSit'},
-    {id: uuid.v4(), order: 1, column: 3, row: 3, content: '# Card 3-3-1\nAmet'}
 ];
 
 export default {

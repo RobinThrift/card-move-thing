@@ -21,6 +21,7 @@ import {FloatingCard} from './FloatingCard';
 
 import {updateCard, reorderCard, removeCard, addCard} from '../actions/cards';
 import * as columnActions from '../actions/columns';
+import * as rowActions from '../actions/rows';
 
 import {createDocument} from '../services/collaborative';
 
@@ -88,7 +89,7 @@ class App extends React.Component<AppProps, AppState> {
         }).toArray();
 
         let addColumnHandler = () => {
-            let column = {id: uuid.v4(), title: 'New column', order: columns.count() + 1};
+            let column = {id: uuid.v4(), title: prompt("Enter a column name"), order: columns.count() + 1};
             dispatch(columnActions.addColumn(column));
         };
 
@@ -133,6 +134,11 @@ class App extends React.Component<AppProps, AppState> {
             };
         };
 
+        let addRowHandler = () => {
+            let row = {id: uuid.v4(), title: prompt("Enter a row name"), order: rows.count() + 1};
+            dispatch(rowActions.addRow(row));
+        };
+
         let rowEls = rows.map((row) => {
             let rowCols = columns.map((col) => {
                 let colCards = cards
@@ -166,6 +172,12 @@ class App extends React.Component<AppProps, AppState> {
                 </Row>
             );
         }).toArray();
+        
+        rowEls.push(
+            <Row key={uuid.v4()}>
+                <span onClick={addRowHandler.bind(this)}>+</span>
+            </Row>
+        );
 
         return (
             <div>

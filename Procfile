@@ -1,1 +1,1 @@
-web: sh -c 'cd server && exec node index.js'
+web: npm start

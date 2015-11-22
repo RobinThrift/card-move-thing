@@ -9,9 +9,12 @@ var browserChannel = require('browserchannel').server
 var share = require('share').server.createClient({ backend: backend });
 var json = require('ot-json0')
 var express = require('express');
+
+var path = require('path');
+
 var app = express();
 
-app.use(express.static("../dist/"));
+app.use(express.static(path.resolve(__dirname, "../dist/")));
 
 app.use(browserChannel(function (client) {
 	var stream = new Duplex({ objectMode: true });

@@ -4,7 +4,10 @@
   "description": "",
   "main": "src/scripts/app.tsx",
   "scripts": {
-    "test": "gulp test"
+    "preinstall": "npm link ./server",
+    "postinstall": "gulp dist",
+    "test": "gulp test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -34,7 +37,8 @@
     "react-redux": "^4.0.0",
     "redux": "^3.0.4",
     "share": "^0.7.40",
-    "slug": "^0.9.1"
+    "slug": "^0.9.1",
+    "card-move-thing-server": "file:./server/"
   },
   "devDependencies": {
     "browser-sync": "^2.10.0",

@@ -45,4 +45,5 @@ app.get('/b/:id', function(req, res) {
 	res.sendFile('index.html', {root: '../dist'});
 });
 
-app.listen(process.argv[2] || 8080);
+var process = require('process');
+app.listen(process.env.PORT || 8080);

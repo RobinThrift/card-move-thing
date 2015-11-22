@@ -13,8 +13,9 @@ var express = require('express');
 var path = require('path');
 
 var app = express();
+var distPath = path.resolve(__dirname, "../dist/");
 
-app.use(express.static(path.resolve(__dirname, "../dist/")));
+app.use(express.static(distPath));
 
 app.use(browserChannel(function (client) {
 	var stream = new Duplex({ objectMode: true });
@@ -45,7 +46,7 @@ app.use(browserChannel(function (client) {
 }));
 
 app.get('/b/:id', function(req, res) {
-	res.sendFile('index.html', {root: '../dist'});
+	res.sendFile('index.html', {root: distPath});
 });
 
 var process = require('process');

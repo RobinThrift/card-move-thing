@@ -23,6 +23,9 @@ module.exports = function(gulp, config) {
                 .transform(babelify, {
                     presets: ['es2015', 'react']
                 })
+                .transform({
+                    global: true
+                }, 'uglifyify')
                 .bundle()
                 .on('error', function (error) { console.error(error.toString()); })
                 .pipe(source('main.min.js'))

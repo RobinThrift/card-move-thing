@@ -4,7 +4,7 @@ var gulp       = require('gulp'),
     requireDir = require('require-dir'),
     config     = {
         cwd: __dirname,
-        target: 'dev',
+        target: require('process').env.NODE_ENV != 'production' ? 'dev' : 'production',
         paths: {
             html: 'src/index.html',
             scripts: {

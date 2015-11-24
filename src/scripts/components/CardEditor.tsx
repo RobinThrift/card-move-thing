@@ -17,13 +17,13 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
         this.state = {
             editableContent: props.value
         };
-    };
+    }
 
     componentDidMount() {
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = this.el.value.length;
         this.autoResize();
-    };
+    }
 
     onKeyDown(e) {
         if (e.keyCode === 13 && !e.shiftKey) { // shift + enter
@@ -33,18 +33,18 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
         } else if (e.keyCode === 27) { // esc
             this.props.onEditingCancelled();
         }
-    };
+    }
 
     autoResize() {
         // auto-resize the textarea
         this.el.style.height = '10px';
         this.el.style.height = this.el.scrollHeight + 'px';
-    };
+    }
 
     onContentChange(e) {
         this.setState({editableContent: e.target.value});
         this.autoResize();
-    };
+    }
 
     render() {
         return (
@@ -55,5 +55,5 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
                 onChange={this.onContentChange.bind(this)}
                 ref={(el: HTMLTextAreaElement) => {this.el = el;}}></textarea>
         );
-    };
+    }
 }

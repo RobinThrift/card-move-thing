@@ -34,6 +34,7 @@ class FloatingCardComp extends React.Component<FloatingCardProps, FloatingCardSt
         return connectDragSource(((
             <div>
                 <Card {...this.props}
+                    editing={true}
                     className="card-card--floating"
                     onChange={this.onChange.bind(this)}
                 >

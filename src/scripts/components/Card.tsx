@@ -11,6 +11,7 @@ export interface CardProps {
     onEditingCancelled?: Function;
     color?: string;
     className: string;
+    editing?: boolean;
 };
 
 type CardState = {
@@ -27,7 +28,7 @@ export class Card extends React.Component<CardProps, CardState> {
     constructor(props) {
         super(props);
         this.state = {
-            editing: false,
+            editing: props.editing,
             editableContent: props.children
         };
     }

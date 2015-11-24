@@ -21,8 +21,8 @@
     "browserchannel": "^2.0.0",
     "express": "^4.13.3",
     "livedb": "^0.5.13",
-    "livedb-mongo": "^0.4.1",
     "ot-json0": "^1.0.1",
+    "redis": "^2.3.1",
     "share": "^0.7.40"
   }
 }

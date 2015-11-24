@@ -1,7 +1,6 @@
-var livedb = require('livedb');
-//var db = require('livedb-mongo')('localhost:27017/card-move-thing?auto_reconnect', {safe: true});
-//var backend = livedb.client(db);
-var backend = livedb.client(livedb.memory());
+//var livedb = require('livedb');
+//var backend = livedb.client(livedb.memory());
+var backend = require('./redisBackend')();
 
 var Duplex = require('stream').Duplex;
 var browserChannel = require('browserchannel').server

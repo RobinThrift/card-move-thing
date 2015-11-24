@@ -60,7 +60,7 @@ class App extends React.Component<AppProps, AppState> {
         this.props.onDocumentNameSet(id);
         this.setState({isNew: false});
     }
-    
+
     onAddCardCancelled() {
         this.setState({newCard: null});
     }
@@ -98,7 +98,7 @@ class App extends React.Component<AppProps, AppState> {
                 <span onClick={addColumnHandler.bind(this)}>+</span>
             </Column>
         );
-        
+
         let header = (
             <Row header={true}>
                 {headerCols}
@@ -172,7 +172,7 @@ class App extends React.Component<AppProps, AppState> {
                 </Row>
             );
         }).toArray();
-        
+
         rowEls.push(
             <Row key={uuid.v4()}>
                 <span onClick={addRowHandler.bind(this)}>+</span>

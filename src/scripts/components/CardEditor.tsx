@@ -26,11 +26,11 @@ export class CardEditor extends React.Component<CardEditorProps, CardEditorState
     };
 
     onKeyDown(e) {
-        if (e.keyCode === 13 && !e.shiftKey) { // Shift + Enter
+        if (e.keyCode === 13 && !e.shiftKey) { // shift + enter
             this.props.onEditingDone({
                 content: e.target.value
             });
-        } else if (e.keyCode === 27) { // Esc
+        } else if (e.keyCode === 27) { // esc
             this.props.onEditingCancelled();
         }
     };

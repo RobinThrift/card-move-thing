@@ -44,7 +44,7 @@ export class Card extends React.Component<CardProps, CardState> {
         this.props.onChange(e);
         this.setState({editing: false});
     }
-    
+
     onEditingCancelled() {
         this.props.onEditingCancelled();
         this.setState({editing: false});

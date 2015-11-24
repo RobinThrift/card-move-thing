@@ -12,9 +12,10 @@ import {syncCards} from './actions/cards';
 import {syncColumns} from './actions/columns';
 import {syncRows} from './actions/rows';
 import {Map} from 'immutable';
+import {Store} from 'redux';
 
-let stateToJS: (state: State) => SharedState = (state: State) => {
-  let s: State = state.getState();
+let stateToJS = (store: Store) => {
+  let s: State = store.getState();
   return {
     rows: s.rows.toJS(),
     columns: s.columns.toJS(),

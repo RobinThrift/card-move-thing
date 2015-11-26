@@ -1,11 +1,12 @@
 FROM node:4.2.1-slim
 
-ADD package.json /src/package.json
-ADD server/package.json /src/server/package.json
-RUN cd /src; npm install
+ENV user card-move-thing
+RUN groupadd --system $user && useradd --system --create-home --gid $user $user
 
 COPY . /src
-RUN cd /src; node ./node_modules/gulp/bin/gulp.js dist
+RUN chown $user --recursive /src
+USER $user
+RUN cd /src; npm install
 
 EXPOSE 8080
 

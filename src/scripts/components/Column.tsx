@@ -3,14 +3,20 @@ import * as React from 'react';
 import {DropTarget} from 'react-dnd';
 import {CARD_DRAG_TYPE} from './ReorderableCard';
 import {FLOATING_CARD_DRAG_TYPE} from './FloatingCard';
+import {HeaderEditor} from './HeaderEditor';
 
 export type ColumnProps = {
     heading?: boolean,
-    children?: string | React.ReactElement<any> | React.ReactElement<any>[],
+    children?: string,
     column?: number,
     row?: number,
     connectDropTarget?: Function,
-    key?: string
+    key?: string,
+    onChange: Function
+}
+
+type ColumnState = {
+    editing: boolean
 }
 
 let columnTarget = {
@@ -40,17 +46,50 @@ function collect(connect) {
 }
 
 @DropTarget([CARD_DRAG_TYPE, FLOATING_CARD_DRAG_TYPE], columnTarget, collect)
-export class Column extends React.Component<ColumnProps, {}> {
+export class Column extends React.Component<ColumnProps, ColumnState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false
+        };
+    }
+
+    onClick() {
+        this.setState({editing: !this.state.editing});
+    }
+
+    onEditingDone(e) {
+        this.props.onChange(e);
+        this.setState({editing: false});
+    }
+
+    onEditingCancelled() {
+        this.setState({editing: false});
+    }
+
     render() {
         let props = this.props;
         let classList = 'card-column';
         classList += (props.heading) ? ' card-column--header' : '';
 
         let content = (props.heading) ? (<span>{props.children}</span>) : props.children;
-        return props.connectDropTarget((
-            <div className={classList}>
-                {content}
-            </div>
-        ));
+        if (!this.state.editing) {
+            return props.connectDropTarget((
+                <div className={classList} onClick={this.onClick.bind(this)}>
+                    {content}
+                </div>
+            ));
+        } else {
+            classList += ' editing';
+            return (
+                <div className={classList} onClick={this.onClick.bind(this)}>
+                    <HeaderEditor
+                        value={this.props.children}
+                        onEditingDone={this.onEditingDone.bind(this)}
+                        onEditingCancelled={this.onEditingCancelled.bind(this)}
+                    />
+                </div>
+            );
+        }
     }
 }
